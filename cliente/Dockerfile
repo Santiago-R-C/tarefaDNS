@@ -1,4 +1,4 @@
-FROM debian:13
+FROM debian:newest
 
 RUN apt update  && apt install -y \
     procps \

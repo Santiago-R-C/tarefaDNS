@@ -9,7 +9,7 @@ services:
       - ./dnsserver/db.starwars.lan:/etc/bind/db.starwars.lan
     networks:
       rededns:
-        ipv4_address: 172.25.0.11
+        ipv4_address: 192.168.20.10
   cliente:
     build: cliente
     hostname: cliente1
@@ -22,5 +22,3 @@ networks:
     ipam:
       config:
         - subnet: 192.168.20.0/24
-
-

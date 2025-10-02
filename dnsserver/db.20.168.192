@@ -1,0 +1,28 @@
+;
+; Archivo de zona inversa para la red 192.168.20.0/24
+; Zona: 20.168.192.in-addr.arpa
+;
+$TTL    86400   ; TTL por defecto para todos los registros (1 día)
+$ORIGIN 20.168.192.in-addr.arpa.
+
+; Registro SOA (Start of Authority)
+@       IN      SOA     ns1.starwars.lan. admin.starwars.lan. (
+                        2025100201     ; Serial (AAAAMMDDNN)
+                        3600           ; Refresh (1 hora)
+                        1800           ; Retry (30 minutos)
+                        1209600        ; Expire (2 semanas)
+                        86400          ; Negative Cache TTL (1 día)
+                        )
+
+; Registro NS (Name Server)
+@       IN      NS      darthsidious.starwars.lan.
+
+; Registros PTR (Pointer Records) para resolución inversa
+10      IN      PTR     darthvader.starwars.lan.
+101     IN      PTR     skywalker.starwars.lan.
+111     IN      PTR     skywalker.starwars.lan.
+22      IN      PTR     luke.starwars.lan.
+11      IN      PTR     darthsidious.starwars.lan.
+24      IN      PTR     yoda.starwars.lan.
+25      IN      PTR     yoda.starwars.lan.
+26      IN      PTR     c3p0.starwars.lan.

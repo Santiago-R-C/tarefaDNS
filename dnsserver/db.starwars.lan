@@ -1,8 +1,8 @@
 ;
-; Archivo de zona para starwars.lan
+; Archivo de zona para starwars.lan.
 ;
 $TTL    86400   ; TTL por defecto para todos los registros (1 día)
-$ORIGIN ejemplo.com.
+$ORIGIN starwars.lan.
 
 ; Registro SOA (Start of Authority)
 @       IN      SOA     ns1.starwars.lan. admin.starwars.lan. (
@@ -28,6 +28,9 @@ c3p0    IN      A       192.168.20.26
 
 ; Registro MX (Mail Exchange)
 @       IN      MX      10 c3po.starwars.lan.
+
+; Registro TXT
+lenda       IN      TXT     "Que a forza te acompanhe"
 
 ; Registro CNAME
 palpatine   IN      CNAME   darthsidious.starwars.lan.
