@@ -1,12 +1,36 @@
 # Instalación de zonas mestras primarias
 ## 1. Instala o servidor BIND9 no equipo darthvader. Comproba que xa funciona coma servidor DNS caché pegando no documento de entrega a saída deste comando dig @localhost www.edu.xunta.es
-dig @localhost www.edu.xunta.es
-
+### Salida comando: dig @localhost www.edu.xunta.es
+![dig @localhost www.edu.xunta.es](Comando-1.png)
+---
 ## 2. Configura o servidor BIND9 para que empregue como reenviador 8.8.8.8. pegando no documento de entrega contido do ficheiro /etc/bind/named.conf.options e a saída deste comando: dig @localhost www.mecd.gob.es
-dig @localhost www.mecd.gob.es
+### Arquivo /etc/bind/named.conf.local
+```
+//
+// Do any local configuration here
+//
 
+// Consider adding the 1918 zones here, if they are not used in your
+// organization
+//include "/etc/bind/zones.rfc1918";
 
+// Zona directa para starwars.lan
+zone "starwars.lan" {
+    type master;
+    file "/etc/bind/db.starwars.lan";
+    allow-update { none; };
+};
 
+// Zona inversa para la red 192.168.20.0/24
+zone "20.168.192.in-addr.arpa" {
+    type master;
+    file "/etc/bind/db.20.168.192";
+    allow-update { none; };
+};
+```
+### Salida comando: dig @localhost www.mecd.gob.es
+![dig @localhost www.mecd.gob.es](Comando-2.png)
+---
 ## 3. Instala unha zona primaria de resolución directa chamada "starwars.lan" e engade os seguintes rexistros de recursos (a maiores dos rexistros NS e SOA imprescindibles):
 - Tipo A: darthvader con IP 192.168.20.10
 - Tipo A: skywalker con IP 192.168.20.101
@@ -23,7 +47,7 @@ dig @localhost www.mecd.gob.es
 ### Arquivo db.starwars.lan
 ```
 ;
-; Archivo de zona para starwars.lan
+; Archivo de zona para starwars.lan.
 ;
 $TTL    86400   ; TTL por defecto para todos los registros (1 día)
 $ORIGIN starwars.lan.
@@ -41,17 +65,21 @@ $ORIGIN starwars.lan.
 @       IN      NS      darthsidious.starwars.lan.
 
 ; Registros A
+@           IN      A       192.168.20.100
 darthvader  IN      A       192.168.20.10
 skywalker   IN      A       192.168.20.101
 skywalker   IN      A       192.168.20.111
-luke    IN      A       192.168.20.22
+luke        IN      A       192.168.20.22
 darthsidious    IN      A       192.168.20.11
-yoda    IN      A       192.168.20.24
-yoda    IN      A       192.168.20.25
-c3p0    IN      A       192.168.20.26
+yoda        IN      A       192.168.20.24
+yoda        IN      A       192.168.20.25
+c3p0        IN      A       192.168.20.26
 
 ; Registro MX (Mail Exchange)
 @       IN      MX      10 c3po.starwars.lan.
+
+; Registro TXT
+lenda       IN      TXT     "Que a forza te acompanhe"
 
 ; Registro CNAME
 palpatine   IN      CNAME   darthsidious.starwars.lan.
@@ -70,6 +98,13 @@ palpatine   IN      CNAME   darthsidious.starwars.lan.
 zone "starwars.lan" {
     type master;
     file "/etc/bind/db.starwars.lan";
+    allow-update { none; };
+};
+
+// Zona inversa para la red 192.168.20.0/24
+zone "20.168.192.in-addr.arpa" {
+    type master;
+    file "/etc/bind/db.20.168.192";
     allow-update { none; };
 };
 ```
@@ -138,3 +173,5 @@ zone "20.168.192.in-addr.arpa" {
 - nslookup -q=soa starwars.lan localhost
 - nslookup -q=txt lenda.starwars.lan localhost
 - nslookup 192.168.20.11 localhost
+### Salida comandos: 
+![Comandos-5](Comandos-5.png)

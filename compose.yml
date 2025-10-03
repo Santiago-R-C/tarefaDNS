@@ -1,22 +1,25 @@
 services:
   dnsserver:
     build: dnsserver
-    hostname: darthvader
+    hostname: services
     ports:
-      - 192.168.20.10:53:53    #So na rede principal
+      - 127.0.0.1:53:53    #So na rede principal
     volumes:
+      - ./dnsserver/named.conf.local:/etc/bind/named.conf.local
       - ./dnsserver/named.conf.options:/etc/bind/named.conf.options
       - ./dnsserver/db.starwars.lan:/etc/bind/db.starwars.lan
+      - ./dnsserver/db.20.168.192:/etc/bind/db.20.168.192
+    networks:
+      rededns:
+        ipv4_address: 192.168.20.100
+  cliente:
+    build: cliente
+    hostname: darthvader
     networks:
       rededns:
         ipv4_address: 192.168.20.10
-  cliente:
-    build: cliente
-    hostname: cliente1
-    networks:
-      rededns:
-        ipv4_address: 172.25.0.100
-    dns: 192.168.20.10
+    dns:
+      - 192.168.20.100
 networks:
   rededns:
     ipam:

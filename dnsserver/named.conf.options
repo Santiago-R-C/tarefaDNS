@@ -3,5 +3,6 @@ options {
 	forwarders {
 		8.8.8.8;
 		9.9.9.9;
+		// Renviador 9.9.9.9 para asegurarnos que si no funciona el 8.8.8.8 tengamos uno
 	};	
 };

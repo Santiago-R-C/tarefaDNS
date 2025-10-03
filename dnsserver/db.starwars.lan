@@ -17,14 +17,15 @@ $ORIGIN starwars.lan.
 @       IN      NS      darthsidious.starwars.lan.
 
 ; Registros A
+@           IN      A       192.168.20.100
 darthvader  IN      A       192.168.20.10
 skywalker   IN      A       192.168.20.101
 skywalker   IN      A       192.168.20.111
-luke    IN      A       192.168.20.22
+luke        IN      A       192.168.20.22
 darthsidious    IN      A       192.168.20.11
-yoda    IN      A       192.168.20.24
-yoda    IN      A       192.168.20.25
-c3p0    IN      A       192.168.20.26
+yoda        IN      A       192.168.20.24
+yoda        IN      A       192.168.20.25
+c3p0        IN      A       192.168.20.26
 
 ; Registro MX (Mail Exchange)
 @       IN      MX      10 c3po.starwars.lan.
