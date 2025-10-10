@@ -5,8 +5,8 @@ $TTL    86400   ; TTL por defecto para todos los registros (1 día)
 $ORIGIN starwars.lan.
 
 ; Registro SOA (Start of Authority)
-@       IN      SOA     ns1.starwars.lan. admin.starwars.lan. (
-                        1              ; Serial (AAAAMMDDNN)
+@       IN      SOA     darthvader.starwars.lan. admin.starwars.lan. (
+                        2              ; Serial (AAAAMMDDNN)
                         3600           ; Refresh (1 hora)
                         1800           ; Retry (30 minutos)
                         1209600        ; Expire (2 semanas)
@@ -14,10 +14,11 @@ $ORIGIN starwars.lan.
                         )
 
 ; Registro NS (Name Server)
+@       IN      NS      darthvader.starwars.lan.
 @       IN      NS      darthsidious.starwars.lan.
 
 ; Registros A
-@           IN      A       192.168.20.100
+@           IN      A       192.168.20.10
 darthvader  IN      A       192.168.20.10
 skywalker   IN      A       192.168.20.101
 skywalker   IN      A       192.168.20.111

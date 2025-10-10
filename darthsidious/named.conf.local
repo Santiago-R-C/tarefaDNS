@@ -1,0 +1,21 @@
+//
+// Do any local configuration here
+//
+
+// Consider adding the 1918 zones here, if they are not used in your
+// organization
+//include "/etc/bind/zones.rfc1918";
+
+// Zona directa para starwars.lan
+zone "starwars.lan" {
+    type slave;
+    file "db.starwars.lan";
+    masters { 192.168.20.10; };
+};
+
+// Zona inversa para la red 192.168.20.0/24
+zone "20.168.192.in-addr.arpa" {
+    type slave;
+    file "db.20.168.192";
+    masters { 192.168.20.10; };
+};
