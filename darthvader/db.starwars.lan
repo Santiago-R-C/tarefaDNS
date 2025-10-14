@@ -27,6 +27,8 @@ darthsidious    IN      A       192.168.20.11
 yoda        IN      A       192.168.20.24
 yoda        IN      A       192.168.20.25
 c3p0        IN      A       192.168.20.26
+chewbacca   IN      A       192.168.20.28
+r2d2        IN      A       192.168.20.29
 
 ; Registro MX (Mail Exchange)
 @       IN      MX      10 c3po.starwars.lan.

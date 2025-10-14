@@ -1,9 +1,9 @@
-# Instalación de zonas mestras primarias
-## 1. Instala o servidor BIND9 no equipo darthvader. Comproba que xa funciona coma servidor DNS caché pegando no documento de entrega a saída deste comando dig @localhost www.edu.xunta.es
+# 1. Instalación de zonas mestras primarias
+## 1.1 Instala o servidor BIND9 no equipo darthvader. Comproba que xa funciona coma servidor DNS caché pegando no documento de entrega a saída deste comando dig @localhost www.edu.xunta.es
 ### Salida comando: dig @localhost www.edu.xunta.es
-![dig @localhost www.edu.xunta.es](Comando-1.png)
+![dig @localhost www.edu.xunta.es](Comando-1.1.png)
 ---
-## 2. Configura o servidor BIND9 para que empregue como reenviador 8.8.8.8. pegando no documento de entrega contido do ficheiro /etc/bind/named.conf.options e a saída deste comando: dig @localhost www.mecd.gob.es
+## 1.2. Configura o servidor BIND9 para que empregue como reenviador 8.8.8.8. pegando no documento de entrega contido do ficheiro /etc/bind/named.conf.options e a saída deste comando: dig @localhost www.mecd.gob.es
 ### Arquivo /etc/bind/named.conf.local
 ```
 //
@@ -29,9 +29,9 @@ zone "20.168.192.in-addr.arpa" {
 };
 ```
 ### Salida comando: dig @localhost www.mecd.gob.es
-![dig @localhost www.mecd.gob.es](Comando-2.png)
+![dig @localhost www.mecd.gob.es](Comando-1.2.png)
 ---
-## 3. Instala unha zona primaria de resolución directa chamada "starwars.lan" e engade os seguintes rexistros de recursos (a maiores dos rexistros NS e SOA imprescindibles):
+## 1.3. Instala unha zona primaria de resolución directa chamada "starwars.lan" e engade os seguintes rexistros de recursos (a maiores dos rexistros NS e SOA imprescindibles):
 - Tipo A: darthvader con IP 192.168.20.10
 - Tipo A: skywalker con IP 192.168.20.101
 - Tipo A: skywalker con IP 192.168.20.111
@@ -108,7 +108,7 @@ zone "20.168.192.in-addr.arpa" {
     allow-update { none; };
 };
 ```
-## 4. Instala unha zona de resolución inversa que teña que ver co enderezo do equipo darthvader, e engade rexistros PTR para os rexistros tipo A do exercicio anterior. Pega no documento de entrega o contido do arquivo de zona, e do arquivo /etc/bind/named.conf.local
+## 1.4. Instala unha zona de resolución inversa que teña que ver co enderezo do equipo darthvader, e engade rexistros PTR para os rexistros tipo A do exercicio anterior. Pega no documento de entrega o contido do arquivo de zona, e do arquivo /etc/bind/named.conf.local
 ### Arquivo db.20.168.192
 ```
 ;
@@ -164,7 +164,7 @@ zone "20.168.192.in-addr.arpa" {
     allow-update { none; };
 };
 ```
-## 5. Comproba que podes resolver os distintos rexistros de recursos. Pega no documento de entrega a saída dos comandos:
+## 1.5. Comproba que podes resolver os distintos rexistros de recursos. Pega no documento de entrega a saída dos comandos:
 - nslookup darthvader.starwars.lan localhost
 - nslookup skywalker.starwars.lan localhost
 - nslookup starwars.lan localhost
@@ -174,4 +174,81 @@ zone "20.168.192.in-addr.arpa" {
 - nslookup -q=txt lenda.starwars.lan localhost
 - nslookup 192.168.20.11 localhost
 ### Salida comandos: 
-![Comandos-5](Comandos-5.png)
+![Comandos-5](Comandos-1.5.png)
+
+# 2. Instalación de zonas secundarias
+## 2.1. Tomaremos a máquina darthsidious, e configuraremola para ser servidor secundario, tanto da zona primaria de resolución directa como de resolución inversa. Captura os ficheiros de configuración en ambalas dúas máquinas. Fai unha captura onde se vexa o reinicio da máquina darthsidious, no que se vexa no log dos dous equipos e que se fixo a transferencia de zona.
+### Ficheiro named.conf.local en darthsidious
+```
+//
+// Do any local configuration here
+//
+
+// Consider adding the 1918 zones here, if they are not used in your
+// organization
+//include "/etc/bind/zones.rfc1918";
+
+// Zona directa para starwars.lan
+zone "starwars.lan" {
+    type slave;
+    file "db.starwars.lan";
+    masters { 192.168.20.10; };
+};
+
+// Zona inversa para la red 192.168.20.0/24
+zone "20.168.192.in-addr.arpa" {
+    type slave;
+    file "db.20.168.192";
+    masters { 192.168.20.10; };
+};
+```
+### Ficheiro named.conf.local en darthvader
+```
+//
+// Do any local configuration here
+//
+
+// Consider adding the 1918 zones here, if they are not used in your
+// organization
+// include "/etc/bind/zones.rfc1918";
+
+// Zona directa para starwars.lan
+zone "starwars.lan" {
+    type master;
+    file "/etc/bind/db.starwars.lan";
+    allow-transfer { 192.168.20.11; };
+};
+
+// Zona inversa para la red 192.168.20.0/24
+zone "20.168.192.in-addr.arpa" {
+    type master;
+    file "/etc/bind/db.20.168.192";
+    allow-transfer { 192.168.20.11; };
+};
+```
+### Ficheiro named.conf.option iguales
+```
+options {
+	directory "/var/cache/bind";
+	// forwarders {
+	// 	8.8.8.8;
+	// 	9.9.9.9;
+	// 	// Renviador 9.9.9.9 para asegurarnos que si no funciona el 8.8.8.8 tengamos uno
+	// };	
+};
+```
+### Salida de logs
+![Salida-logs](Logs-2.1.png)
+
+## 2.2. Engade un rexistro tipo A (Chewbacca 192.168.20.28) na zona de resolución directa e tamén na de resolución inversa.  Fai unha captura no momento do reinicio do equipo darthvader, no que se vexa o log dos dous equipos e que se amose que se fixo a transferencia de zona. Adxunta tamén unha captura do ficheiro de zona no servidor secundario.
+### Salida de logs
+![Salida-logs](Logs-2.2.png)
+### Ficheiro db.20.168.192 en darthsidious
+![db.20.168.192](db.20.168.192-2.2.png)
+## 2.3. Comproba que o servidor secundario pode resolver ese nome.
+![Resolver nslookup](Comandos-2.3.png)
+## 2.4. Fai os cambios necesarios para que as trasferencias se fagan de forma segura empregando chaves.  Repite as capturas e vídeos do punto 2, engadindo o rexistro r2d2 (192.168.20.29)
+### Salida de logs
+![Salida-logs](Logs-2.4.png)
+### Ficheiro db.20.168.192 en darthsidious
+![db.20.166.192](db.20.168.192-2.4.png)

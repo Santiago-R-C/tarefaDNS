@@ -26,3 +26,5 @@ $ORIGIN 20.168.192.in-addr.arpa.
 24      IN      PTR     yoda.starwars.lan.
 25      IN      PTR     yoda.starwars.lan.
 26      IN      PTR     c3p0.starwars.lan.
+28      IN      PTR     chewbacca.starwars.lan.
+29      IN      PTR     r2d2.starwars.lan.
