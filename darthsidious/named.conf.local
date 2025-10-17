@@ -29,3 +29,10 @@ zone "20.168.192.in-addr.arpa" {
     file "db.20.168.192";
     masters { 192.168.20.10; };
 };
+
+// Zona directa para academia.jedi
+zone "academia.jedi" {
+    type slave;
+    file "db.academia.jedi";
+    masters { 192.168.20.101; };
+};

@@ -20,16 +20,25 @@ services:
     volumes:
       - ./darthsidious/named.conf.local:/etc/bind/named.conf.local
       - ./darthsidious/named.conf.options:/etc/bind/named.conf.options
-
     networks:
       rededns:
         ipv4_address: 192.168.20.11
+  hansolo:
+    build: dnsserver
+    hostname: hansolo
+    volumes:
+      - ./hansolo/named.conf.options:/etc/bind/named.conf.options
+      - ./hansolo/named.conf.local:/etc/bind/named.conf.local
+      - ./hansolo/db.mestre.academia.jedi:/etc/bind/db.mestre.academia.jedi
+    networks:
+      rededns:
+        ipv4_address: 192.168.20.105
   cliente:
     build: cliente
     hostname: cliente
     networks:
       rededns:
-        ipv4_address: 192.168.20.101
+        ipv4_address: 192.168.20.111
     dns:
       - 192.168.20.10
 networks:

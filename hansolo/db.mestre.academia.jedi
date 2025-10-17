@@ -2,7 +2,7 @@
 ; Archivo de zona para starwars.lan.
 ;
 $TTL    86400   ; TTL por defecto para todos los registros (1 día)
-$ORIGIN starwars.lan.
+$ORIGIN academia.jedi.lan.
 
 ; Registro SOA (Start of Authority)
 @       IN      SOA     darthvader.starwars.lan. admin.starwars.lan. (
