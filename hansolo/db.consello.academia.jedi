@@ -1,0 +1,23 @@
+;
+; Archivo de zona para consello.academia.jedi.
+;
+$TTL    86400   ; TTL por defecto para todos los registros (1 día)
+$ORIGIN consello.academia.jedi.
+
+; Registro SOA (Start of Authority)
+@       IN      SOA     hansolo.consello.academia.jedi. admin.consello.academia.jedi. (
+                        2              ; Serial (AAAAMMDDNN)
+                        3600           ; Refresh (1 hora)
+                        1800           ; Retry (30 minutos)
+                        1209600        ; Expire (2 semanas)
+                        86400          ; Negative Cache TTL (1 día)
+                        )
+
+; Registro NS (Name Server)
+@       IN      NS      hansolo.consello.academia.jedi.
+
+; Registros A
+@           IN      A       192.168.20.105
+hansolo     IN      A       192.168.20.105
+yaddle      IN      A       192.168.20.215
+yaraelpoof  IN      A       192.168.20.216

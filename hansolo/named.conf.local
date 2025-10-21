@@ -6,24 +6,16 @@
 // organization
 // include "/etc/bind/zones.rfc1918";
 
-// Clave de transferencia
-key "transfer-key" {
-        algorithm hmac-sha256;
-        secret "60El5kUbYV6u+QUT0CkTq1o9S1S9UeYlpuR0EEPrLQA=";
+// Zona directa para consello.academia.jedi
+zone "consello.academia.jedi" {
+    type master;
+    file "/etc/bind/db.consello.academia.jedi";
+    allow-transfer { 192.168.20.101; };
 };
 
-// Zona directa para starwars.lan
-zone "starwars.lan" {
+// Zona directa para imperio.starwars.lan
+zone "imperio.starwars.lan" {
     type master;
-    file "/etc/bind/db.starwars.lan";
-    allow-transfer { key "transfer-key";
-    192.168.20.102; };
-};
-
-// Zona inversa para la red 192.168.20.0/24
-zone "20.168.192.in-addr.arpa" {
-    type master;
-    file "/etc/bind/db.20.168.192";
-    allow-transfer { key "transfer-key";
-    192.168.20.102; };
+    file "/etc/bind/db.imperio.starwars.lan";
+    allow-transfer { 192.168.20.10; };
 };

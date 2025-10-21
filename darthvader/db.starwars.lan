@@ -6,7 +6,7 @@ $ORIGIN starwars.lan.
 
 ; Registro SOA (Start of Authority)
 @       IN      SOA     darthvader.starwars.lan. admin.starwars.lan. (
-                        2              ; Serial (AAAAMMDDNN)
+                        1              ; Serial (AAAAMMDDNN)
                         3600           ; Refresh (1 hora)
                         1800           ; Retry (30 minutos)
                         1209600        ; Expire (2 semanas)
@@ -38,3 +38,12 @@ lenda       IN      TXT     "Que a forza te acompanhe"
 
 ; Registro CNAME
 palpatine   IN      CNAME   darthsidious.starwars.lan.
+
+; Delegación del subdominio imperio
+imperio     IN      NS      hansolo.imperio.starwars.lan.
+hansolo.imperio IN      A       192.168.20.105
+
+; Subdominio antigarepublica
+$ORIGIN antigarepublica.starwars.lan.
+xendor      IN      A       192.168.20.222
+ardenlyn    IN      A       192.168.20.223

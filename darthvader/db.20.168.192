@@ -7,7 +7,7 @@ $ORIGIN 20.168.192.in-addr.arpa.
 
 ; Registro SOA (Start of Authority)
 @       IN      SOA     ns1.starwars.lan. admin.starwars.lan. (
-                        2              ; Serial (AAAAMMDDNN)
+                        1              ; Serial (AAAAMMDDNN)
                         3600           ; Refresh (1 hora)
                         1800           ; Retry (30 minutos)
                         1209600        ; Expire (2 semanas)
