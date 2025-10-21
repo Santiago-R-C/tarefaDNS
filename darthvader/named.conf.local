@@ -17,7 +17,8 @@ zone "starwars.lan" {
     type master;
     file "/etc/bind/db.starwars.lan";
     allow-transfer { key "transfer-key";
-    192.168.20.102; };
+    192.168.20.102;
+    192.168.20.105; };
 };
 
 // Zona inversa para la red 192.168.20.0/24
@@ -25,5 +26,6 @@ zone "20.168.192.in-addr.arpa" {
     type master;
     file "/etc/bind/db.20.168.192";
     allow-transfer { key "transfer-key";
-    192.168.20.102; };
+    192.168.20.102;
+    192.168.20.105; };
 };
