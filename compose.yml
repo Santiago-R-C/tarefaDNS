@@ -1,4 +1,5 @@
 services:
+# Servidor darthvader (Principal)
   darthvader:
     build: dnsserver
     hostname: darthvader
@@ -12,6 +13,8 @@ services:
     networks:
       rededns:
         ipv4_address: 192.168.20.10
+      dns: 127.0.0.1
+# Servidor darthsidious (Secundario)
   darthsidious:
     build: dnsserver
     hostname: darthsidious
@@ -23,17 +26,21 @@ services:
     networks:
       rededns:
         ipv4_address: 192.168.20.11
+      dns: 127.0.0.1
+# Servidor hansolo (Subdominio)
   hansolo:
     build: dnsserver
     hostname: hansolo
     volumes:
       - ./hansolo/named.conf.options:/etc/bind/named.conf.options
       - ./hansolo/named.conf.local:/etc/bind/named.conf.local
-      - ./hansolo/db.consello.academia.jedi:/etc/bind/db.mestre.academia.jedi
-      - ./hansolo/db.imperio.starwars.lan:/etc/bind/db.mestre.academia.jedi
+      - ./hansolo/db.consello.academia.jedi:/etc/bind/db.consello.academia.jedi
+      - ./hansolo/db.imperio.starwars.lan:/etc/bind/db.imperio.starwars.lan
     networks:
       rededns:
         ipv4_address: 192.168.20.105
+      dns: 127.0.0.1
+# Cliente
   cliente:
     build: cliente
     hostname: cliente
@@ -42,6 +49,7 @@ services:
         ipv4_address: 192.168.20.111
     dns:
       - 192.168.20.10
+
 networks:
   rededns:
     ipam:
