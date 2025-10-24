@@ -13,7 +13,6 @@ services:
     networks:
       rededns:
         ipv4_address: 192.168.20.10
-      dns: 127.0.0.1
 # Servidor darthsidious (Secundario)
   darthsidious:
     build: dnsserver
@@ -26,7 +25,6 @@ services:
     networks:
       rededns:
         ipv4_address: 192.168.20.11
-      dns: 127.0.0.1
 # Servidor hansolo (Subdominio)
   hansolo:
     build: dnsserver
@@ -39,7 +37,6 @@ services:
     networks:
       rededns:
         ipv4_address: 192.168.20.105
-      dns: 127.0.0.1
 # Cliente
   cliente:
     build: cliente
