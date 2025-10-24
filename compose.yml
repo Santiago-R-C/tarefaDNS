@@ -29,7 +29,8 @@ services:
     volumes:
       - ./hansolo/named.conf.options:/etc/bind/named.conf.options
       - ./hansolo/named.conf.local:/etc/bind/named.conf.local
-      - ./hansolo/db.mestre.academia.jedi:/etc/bind/db.mestre.academia.jedi
+      - ./hansolo/db.consello.academia.jedi:/etc/bind/db.mestre.academia.jedi
+      - ./hansolo/db.imperio.starwars.lan:/etc/bind/db.mestre.academia.jedi
     networks:
       rededns:
         ipv4_address: 192.168.20.105
