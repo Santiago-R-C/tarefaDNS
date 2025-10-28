@@ -3,6 +3,7 @@ services:
   darthvader:
     build: dnsserver
     hostname: darthvader
+    command: -f -4
     ports:
       - 127.0.0.1:53:53    #So na rede principal
     volumes:
@@ -10,6 +11,7 @@ services:
       - ./darthvader/named.conf.local:/etc/bind/named.conf.local
       - ./darthvader/db.starwars.lan:/etc/bind/db.starwars.lan
       - ./darthvader/db.20.168.192:/etc/bind/db.20.168.192
+      - ./darthvader/bind:/var/log/bind
     networks:
       rededns:
         ipv4_address: 192.168.20.10

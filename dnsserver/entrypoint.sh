@@ -1,3 +1,5 @@
 #!/bin/bash
 #chmod a+x safsdadfs
-named -g -u bind "$@"
+# chmod a+w /var/log/bind -R
+
+named -u bind "$@"
