@@ -1,7 +1,7 @@
 # 1. Instalación de zonas mestras primarias
 ## 1.1 Instala o servidor BIND9 no equipo darthvader. Comproba que xa funciona coma servidor DNS caché pegando no documento de entrega a saída deste comando dig @localhost www.edu.xunta.es
 ### Salida comando: dig @localhost www.edu.xunta.es
-![dig @localhost www.edu.xunta.es](Comando-1.1.png)
+![dig @localhost www.edu.xunta.es](imaxes/Comando-1.1.png)
 ---
 ## 1.2. Configura o servidor BIND9 para que empregue como reenviador 8.8.8.8. pegando no documento de entrega contido do ficheiro /etc/bind/named.conf.options e a saída deste comando: dig @localhost www.mecd.gob.es
 ### Arquivo /etc/bind/named.conf.local
@@ -29,7 +29,7 @@ zone "20.168.192.in-addr.arpa" {
 };
 ```
 ### Salida comando: dig @localhost www.mecd.gob.es
-![dig @localhost www.mecd.gob.es](Comando-1.2.png)
+![dig @localhost www.mecd.gob.es](imaxes/Comando-1.2.png)
 ---
 ## 1.3. Instala unha zona primaria de resolución directa chamada "starwars.lan" e engade os seguintes rexistros de recursos (a maiores dos rexistros NS e SOA imprescindibles):
 - Tipo A: darthvader con IP 192.168.20.10
@@ -174,7 +174,7 @@ zone "20.168.192.in-addr.arpa" {
 - nslookup -q=txt lenda.starwars.lan localhost
 - nslookup 192.168.20.11 localhost
 ### Salida comandos: 
-![Comandos-5](Comandos-1.5.png)
+![Comandos-5](imaxes/Comandos-1.5.png)
 
 # 2. Instalación de zonas secundarias
 ## 2.1. Tomaremos a máquina darthsidious, e configuraremola para ser servidor secundario, tanto da zona primaria de resolución directa como de resolución inversa. Captura os ficheiros de configuración en ambalas dúas máquinas. Fai unha captura onde se vexa o reinicio da máquina darthsidious, no que se vexa no log dos dous equipos e que se fixo a transferencia de zona.
@@ -238,17 +238,35 @@ options {
 };
 ```
 ### Salida de logs
-![Salida-logs](Logs-2.1.png)
+![Salida-logs](imaxes/Logs-2.1.png)
 
 ## 2.2. Engade un rexistro tipo A (Chewbacca 192.168.20.28) na zona de resolución directa e tamén na de resolución inversa.  Fai unha captura no momento do reinicio do equipo darthvader, no que se vexa o log dos dous equipos e que se amose que se fixo a transferencia de zona. Adxunta tamén unha captura do ficheiro de zona no servidor secundario.
 ### Salida de logs
-![Salida-logs](Logs-2.2.png)
+![Salida-logs](imaxes/Logs-2.2.png)
 ### Ficheiro db.20.168.192 en darthsidious
-![db.20.168.192](db.20.168.192-2.2.png)
+![db.20.168.192](imaxes/db.20.168.192-2.2.png)
 ## 2.3. Comproba que o servidor secundario pode resolver ese nome.
-![Resolver nslookup](Comandos-2.3.png)
+![Resolver nslookup](imaxes/Comandos-2.3.png)
 ## 2.4. Fai os cambios necesarios para que as trasferencias se fagan de forma segura empregando chaves.  Repite as capturas e vídeos do punto 2, engadindo o rexistro r2d2 (192.168.20.29)
 ### Salida de logs
-![Salida-logs](Logs-2.4.png)
+![Salida-logs](imaxes/Logs-2.4.png)
 ### Ficheiro db.20.168.192 en darthsidious
-![db.20.166.192](db.20.168.192-2.4.png)
+![db.20.166.192](imaxes/db.20.168.192-2.4.png)
+
+# 3. Subdominios
+## 3.1. Instala no equipo lukeskywalker un subdominio chamado "mestre", e dentro del os rexistros
+- A, kitfisto 192.168.20.212
+- A, macewindu 192.168.20.213
+![Resolver nslookup](imaxes/Comandos-3.1.png)
+## 3.2. Instala no equipo hansolo (Windows 2012) un subdominio delegado de "academia.jedi" chamado consello. Engade nel os rexistros:
+- A, yaddle 192.168.20.215
+- A, yaraelpoof 192.168.20.216
+![Resolver nslookup](imaxes/Comandos-3.2.png)
+## 3.3. Instala no equipo darthvader un subdominio chamado antigarepublica, e nel os rexistros: 
+- A, xendor 192.168.20.222
+- A, ardenlyn 192.168.20.223
+![Resolver nslookup](imaxes/Comandos-3.3.png)
+## 3.4. Instala no equipo hansolo (Debian/Ubuntu Server) un subdominio delegado de "starwars.lan" chamado imperio. Engade nel os rexistros:
+- A, tsuichoi 192.168.20.225
+- A, bultarswan 192.168.20.226
+![Resolver nslookup](imaxes/Comandos-3.4.png)
