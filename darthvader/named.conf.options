@@ -1,3 +1,19 @@
+logging {
+    channel query.log {
+        file "/var/log/bind/queries.log";
+        severity dynamic;
+    };
+
+	channel update.log {
+        file "/var/log/bind/update.log";
+        severity dynamic;
+    };
+
+    category queries { query.log; };
+	category update { update.log; };
+};
+
+
 options {
 	directory "/var/cache/bind";
 	// forwarders {
@@ -5,12 +21,4 @@ options {
 	// 	9.9.9.9;
 	// 	// Renviador 9.9.9.9 para asegurarnos que si no funciona el 8.8.8.8 tengamos uno
 	// };	
-};
-logging {
-    channel query.log {
-        file "/var/log/bind/queries.log";
-        severity dynamic;
-    };
-
-    category queries { query.log; };
 };
