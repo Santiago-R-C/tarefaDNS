@@ -8,7 +8,7 @@ options {
 };
 logging {
     channel query.log {
-        file "/var/log/bind/update.log";
+        file "/var/log/bind/queries.log";
         severity dynamic;
     };
 
